@@ -19,26 +19,39 @@ const getUser = (req, res, next) => {
     res.json({user: DUMMY_USERS});
 };
 
-const registerUser = (req, res, next) => {
+const registerUser = async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         console.log(errors);
         throw new HttpError('Name field cannot be empty', 422);
     }
-    const { username, email, password } = req.body;
+    const { 
+        username,
+        email, 
+        password 
+    } = req.body;
 
-    const userExists = DUMMY_USERS.find(u => u.email === email);
-    if (userExists) {
-        throw new HttpError('That email is already registered', 422);
-    }
+    // const userExists = DUMMY_USERS.find(u => u.email === email);
+    // if (userExists) {
+    //     throw new HttpError('That email is already registered', 422);
+    // }
 
-    const newUser = {
-        id: uuidv4(),
+    const newUser = ({
         username,
         email,
         password
+    });
+
+    try {
+        await newUser.save();
+    } catch (err) {
+        const error = new HttpError(
+            'Could not register new user', 500
+        );
+        return next(error);
     };
-    DUMMY_USERS.push(newUser);
+    
+    
 
     res.status(200).json({user: newUser});
 };
