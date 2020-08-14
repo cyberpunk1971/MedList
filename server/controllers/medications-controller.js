@@ -1,6 +1,8 @@
 const {v4:uuidv4} = require('uuid');
+const { validationResult } = require('express-validator');
 
 const HttpError = require('../models/http-error');
+const { Medication } = require('../models/medication');
 
 let DUMMY_MEDS = [
     {
@@ -43,22 +45,49 @@ const getMedsByUserId = (req, res, next) => {
     res.json({meds})
 }
 
-const createMed = (req, res, next) => {
-    const { name, gname, form, dose, route, frequency, fdaid, creator} = req.body;
-    const createdMed = {
-        id:uuidv4(),
+const createMed = async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        console.log(errors);
+        throw new HttpError('Name field cannot be empty', 422);
+    }
+    const {
         name,
         gname,
         form,
+        dose, 
+        route, 
+        frequency,
+        fdaid, 
+        creator
+    } = req.body;
+
+    const createdMed = new Medication({
+        name,
+        gname,
+        form, 
         dose,
         route,
         frequency,
         fdaid,
         creator
-    };
-    DUMMY_MEDS.push(createdMed);
+    }); 
+
+    try {
+        await createdMed.save();
+    } catch (err) {
+        const error = new HttpError(
+            'Could not create medication.', 500
+        );
+        return next(error);
+    }
+
+    
+
     res.status(201).json({med: createdMed})
 };
+
+
 
 const editMed = (req, res, next) => {
     const { name, gname, form, dose, route, frequency } = req.body;

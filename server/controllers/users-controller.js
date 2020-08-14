@@ -1,4 +1,9 @@
 const {v4:uuidv4} = require('uuid');
+const { validationResult } = require('express-validator');
+
+const { User } = require('../models/user');
+
+
 const HttpError = require('../models/http-error');
 
 const DUMMY_USERS = [
@@ -15,6 +20,11 @@ const getUser = (req, res, next) => {
 };
 
 const registerUser = (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        console.log(errors);
+        throw new HttpError('Name field cannot be empty', 422);
+    }
     const { username, email, password } = req.body;
 
     const userExists = DUMMY_USERS.find(u => u.email === email);
@@ -44,7 +54,7 @@ const loginUser = (req, res, next) => {
         throw new HttpError('Login failed', 401);
         
     } 
-     res.json({message: `Welcome ${username}`});
+     //res.json({message: `Welcome ${username}`});
     
 
     
