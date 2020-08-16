@@ -72,19 +72,10 @@
     .col-12 {
       width: 100%;
     }
-
-    div {
-      display: block;
-      text-align: center;
-    }
-
+    
   }
 
-  header {
-    margin-bottom: 100px;
-  }
-
-  ul {
+   ul {
     padding: 0;
     display: flex;
     justify-content: space-around;
@@ -99,4 +90,19 @@
     cursor: pointer;
     color: black;
   }
+
+
+ 
+
+  
+
+  
+
+
+
+  
+
+  
+  
+  
 

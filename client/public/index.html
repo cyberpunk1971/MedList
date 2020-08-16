@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     <script src="index.js" defer></script>
     <title>MedList</title>
 </head>
+
 <body>
     <header class="col-12" role="banner">
         <h1>MedList</h1>
@@ -20,21 +22,58 @@
         </nav>
     </header>
 
-        <div class="row form-div">
-        <form class="col-12" action="#" method="POST">
-            <label for="Username">Username</label>
-            <input type="text" id="user-name" name="username">
-            
-            <label for="email">Email</label>
-            <input type="text" id="user-name" name="email">
-            
-            <label for="password">Password</label>
-            <input type="text" id="user-name" name="password">
-            <input type="submit" value="Submit">
-        </form>
-    </div>
- 
 
-    
+    <div class="row">
+        <h1 class="col-6">Hello World</h1>
+
+
+        <div class="col-6">
+
+            <form action="/register">
+
+                <div>
+                    <div>
+                        <label for="username">Username</label>
+                    </div>
+
+                    <div>
+                        <input type="text" id="username" name="username" placeholder="Username..">
+                    </div>
+                </div>
+
+                <div>
+                    <div>
+                        <label for="email">Email</label>
+                    </div>
+
+                    <div>
+                        <input type="email" id="email" name="email" placeholder="Your Email..">
+                    </div>
+                </div>
+
+                <div>
+                    <div>
+                        <label for="password">Password</label>
+                    </div>
+
+                    <div>
+                        <input type="password" id="password" name="password" placeholder="Your password..">
+                    </div>
+                </div>
+
+
+                <div>
+                    <input type="submit" value="Submit">
+                </div>
+
+            </form>
+
+        </div>
+    </div>
 </body>
+
+</html>
+
+</body>
+
 </html>

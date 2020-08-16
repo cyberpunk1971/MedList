@@ -1,9 +1,7 @@
-header {
-    background-color: bisque;
-}
-
-input[type=text], select {
-    width: 50%;
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
     display: inline-block;
@@ -13,7 +11,7 @@ input[type=text], select {
 }
 
 input[type=submit] {
-    width: 50%;
+    width: 100%;
     background-color: blanchedalmond;
     color: black;
     padding: 14px 20px;
@@ -25,4 +23,9 @@ input[type=submit] {
 
 input[type=submit]:hover {
     background-color: rgb(168, 122, 51);
+  }
+
+  header {
+    background-color: bisque;
+    margin-bottom: 100px;
   }
