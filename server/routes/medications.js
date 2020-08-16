@@ -10,6 +10,8 @@ router.get('/:mid', medControllers.getMedById);
 
 router.get('/user/:uid', medControllers.getMedsByUserId);
 
+//router.get('/', medControllers.getMeds);
+
 router.post('/',
  check('name')
 .not()

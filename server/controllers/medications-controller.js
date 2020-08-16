@@ -2,47 +2,82 @@ const {v4:uuidv4} = require('uuid');
 const { validationResult } = require('express-validator');
 
 const HttpError = require('../models/http-error');
-const { Medication } = require('../models/medication');
+const {Medication} = require('../models/medication');
 
-let DUMMY_MEDS = [
-    {
-        id: 'm1',
-        name: 'tylenol',
-        gname: 'acetaminophen',
-        dose: '350mg',
-        route: 'oral',
-        frequency: 'as needed',
-        fdaid: 'm1234',
-        creator: 'u1'
-    }
-];
+// let DUMMY_MEDS = [
+//     {
+//         id: 'm1',
+//         name: 'tylenol',
+//         gname: 'acetaminophen',
+//         dose: '350mg',
+//         route: 'oral',
+//         frequency: 'as needed',
+//         fdaid: 'm1234',
+//         creator: 'u1'
+//     }
+// ];
 
-const getMedById = (req, res, next) => {
+// const getMeds = async (req, res, next) => {
+//     let meds;
+    
+//     try {
+//         meds = Medication.find({}, '-password');
+//     } catch (err) {
+//         const error = new HttpError(
+//             'Cannot retrieve medications',
+//             500
+//         );
+//         return next(error);
+//     }
+//     res.json({meds: meds.map(med => med.toObject({ getters: true }) )})
+// };
+
+const getMedById = async (req, res, next) => {
     const medId = req.params.mid;
 
-    const med = DUMMY_MEDS.find(m => {
-        return m.id === medId;
-    });
+    let med;
+    try {
+         med = await Medication.findById(medId);
+    } catch (err) {
+        const error = new HttpError(
+            'Could not find medication', 500
+        );
+        
+        return next(error);
+    }
 
     if (!med) {
-        throw new HttpError('Could not find a medication for the provided ID.', 404)
+        const error = new HttpError(
+            'Could not find a medication for the provided ID.',
+             404
+        );
+        return next(error);
     } 
 
-    res.json({med})
-}
+    res.json({med: med.toObject({getters: true}) });
+};
 
-const getMedsByUserId = (req, res, next) => {
+const getMedsByUserId = async (req, res, next) => {
     const userId = req.params.uid;
 
-    const meds = DUMMY_MEDS.filter(m => {
-        return m.creator === userId;
-    });
+    let meds;
+    try {
+         meds = await Medication.find({creator: userId});
+    } catch (err) {
+        const error = new HttpError(
+            'Could not find medications with that ID.',
+            500
+        );
+        return next(error);
+    }
+
+   
 
     if (!meds || meds.length === 0) {
         return next(new HttpError('Could not find medications for the provided user ID.', 404));
     }
     
-    res.json({meds})
+    res.json({meds: meds.map(meds => meds.toObject({getters: true}))})
 }
 
 const createMed = async (req, res, next) => {
@@ -82,37 +117,76 @@ const createMed = async (req, res, next) => {
         return next(error);
     }
 
-    
-
     res.status(201).json({med: createdMed})
 };
 
-
-
-const editMed = (req, res, next) => {
+const editMed = async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        throw new HttpError(
+            'Invalid input, please check your request', 422
+        );
+    }
     const { name, gname, form, dose, route, frequency } = req.body;
     const medId = req.params.mid;
 
-    const editedMed = {...DUMMY_MEDS.find(m => m.id === medId)};
-    const medIndex = DUMMY_MEDS.findIndex(m => m.id === medId);
-    editedMed.name = name;
-    editedMed.gname = gname;
-    editedMed.form = form;
-    editedMed.dose = dose;
-    editedMed.route = route;
-    editedMed.frequency = frequency;
+    let med;
+    try {
+        med = await Medication.findById(medId);
+    } catch (err) {
+        const error = new HttpError(
+            'Something went wrong, could not edit medication',
+            500
+        );
+        return next(error);
+    }
+    
+    med.name = name;
+    med.gname = gname;
+    med.form = form;
+    med.dose = dose;
+    med.route = route;
+    med.frequency = frequency;
 
-    DUMMY_MEDS[medIndex] = editedMed;
+    try {
+        await med.save();
+    } catch (err) {
+        const error = new HttpError(
+            'Something went wrong, could not edit medication',
+            500
+        );
+        return next(error);
+    }
 
-    res.status(200).json({med: editedMed});
+    res.status(200).json({med: med.toObject({ getters: true }) });
 };
 
-const deleteMed = (req, res, next) => {
+const deleteMed = async (req, res, next) => {
     const medId = req.params.mid;
-    DUMMY_MEDS = DUMMY_MEDS.filter(m => m.id !== medId);
+    let med;
+    try {
+       med = await Medication.findById(medId);
+    } catch (err) {
+        const error = new HttpError(
+            'Could not find that medication.',
+            500
+        );
+        return next(error);
+    }
+
+    try {
+        await med.remove();
+    } catch (err) {
+        const error = new HttpError(
+            'Could not delete that medication',
+            500
+        );
+        return next(error);
+    }
     res.status(200).json({message: 'Medication deleted.'});
 };
 
+//exports.getMeds = getMeds;
 exports.getMedById = getMedById;
 exports.getMedsByUserId = getMedsByUserId;
 exports.createMed = createMed;

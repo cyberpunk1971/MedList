@@ -28,9 +28,29 @@ const MedSchema = mongoose.Schema({
     fdaid: {
         type: String,
         default: ''
+    },
+    creator: {
+        type: mongoose.Types.ObjectId,
+        required: true,
+        ref: 'User',
+        default: ''
     }
 });
 
+// MedSchema.methods.serialize = function() {
+//     return {
+//       name: this.name || '',
+//       gname: this.gname || '',
+//       form: this.form || '',
+//       dose: this.dose || '',
+//       route: this.route || '',
+//       frequency: this.frequency || '',
+//       fdaid: this.fdaid || '',
+//       id: this._id || ''
+  
+//     };
+//   };
+
 const Medication = mongoose.model('Medication', MedSchema);
-module.exports = { Medication };
+module.exports =  {Medication};
 
