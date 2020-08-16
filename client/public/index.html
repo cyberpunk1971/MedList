@@ -9,15 +9,32 @@
     <title>MedList</title>
 </head>
 <body>
-    <header class="col-12">
+    <header class="col-12" role="banner">
         <h1>MedList</h1>
         <nav class="col-12">
             <ul>
-                <li>Home</li>
-                <li>Login</li>
-                <li>Register</li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="register.html">Register</a></li>
             </ul>
         </nav>
     </header>
+
+        <div class="row form-div">
+        <form class="col-12" action="#" method="POST">
+            <label for="Username">Username</label>
+            <input type="text" id="user-name" name="username">
+            
+            <label for="email">Email</label>
+            <input type="text" id="user-name" name="email">
+            
+            <label for="password">Password</label>
+            <input type="text" id="user-name" name="password">
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+ 
+
+    
 </body>
 </html>
