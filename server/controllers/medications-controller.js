@@ -1,8 +1,10 @@
 const {v4:uuidv4} = require('uuid');
 const { validationResult } = require('express-validator');
+const mongoose = require('mongoose');
 
 const HttpError = require('../models/http-error');
 const {Medication} = require('../models/medication');
+const {User} = require('../models/user');
 
 // let DUMMY_MEDS = [
 //     {
@@ -108,8 +110,35 @@ const createMed = async (req, res, next) => {
         creator
     }); 
 
+    let user;
+
     try {
-        await createdMed.save();
+        user = await user.findById(creator);
+        
+        } catch (err) {
+            const error = new HttpError(
+                'Could not add medication',
+                500
+            );
+            console.error(error);
+            return next(error);
+    }
+
+    if (!user) {
+        const error = new HttpError('Could not find user for that ID, 404');
+        return next (error);
+    }
+
+    console.log(user);
+
+    try {
+        const sess = await Mongoose.startSession();
+        sess.startTransaction();
+        await createdMed.save({session: sess});
+        user.medications.push(createdMed);
+        await user.save({session: sess});
+        await sess.commitTransaction();
+
     } catch (err) {
         const error = new HttpError(
             'Could not create medication.', 500

@@ -30,10 +30,9 @@ const MedSchema = mongoose.Schema({
         default: ''
     },
     creator: {
-        type: mongoose.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         required: true,
-        ref: 'User',
-        default: ''
+        ref: 'User'
     }
 });
 
