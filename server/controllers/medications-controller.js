@@ -132,7 +132,7 @@ const createMed = async (req, res, next) => {
     console.log(user);
 
     try {
-        const sess = await Mongoose.startSession();
+        const sess = await mongoose.startSession();
         sess.startTransaction();
         await createdMed.save({session: sess});
         user.medications.push(createdMed);
