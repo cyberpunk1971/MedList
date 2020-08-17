@@ -113,7 +113,7 @@ const createMed = async (req, res, next) => {
     let user;
 
     try {
-        user = await user.findById(creator);
+        user = await User.findById(creator);
         
         } catch (err) {
             const error = new HttpError(
