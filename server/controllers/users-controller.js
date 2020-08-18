@@ -1,22 +1,8 @@
-const {v4:uuidv4} = require('uuid');
 const { validationResult } = require('express-validator');
 
 const { User } = require('../models/user');
 
 const HttpError = require('../models/http-error');
-
-// const DUMMY_USERS = [
-//     {
-//         id: 'u1',
-//         username: "userone",
-//         email: "test@email.com",
-//         password: "thepassword"
-//     }
-// ];
-
-// const getUser = (req, res, next) => {
-//     res.json({user: DUMMY_USERS});
-// };
 
 
 const registerUser = async (req, res, next) => {

@@ -6,19 +6,6 @@ const HttpError = require('../models/http-error');
 const {Medication} = require('../models/medication');
 const {User} = require('../models/user');
 
-// let DUMMY_MEDS = [
-//     {
-//         id: 'm1',
-//         name: 'tylenol',
-//         gname: 'acetaminophen',
-//         dose: '350mg',
-//         route: 'oral',
-//         frequency: 'as needed',
-//         fdaid: 'm1234',
-//         creator: 'u1'
-//     }
-// ];
-
 // const getMeds = async (req, res, next) => {
 //     let meds;
     

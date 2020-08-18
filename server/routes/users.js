@@ -11,28 +11,18 @@ const router = express.Router();
 router.post('/register', 
 [
     check('username')
-    .not()
-    .isEmpty(),
-    check('password')
-    .not()
-    .isEmpty(),
+        .not()
+        .isEmpty(),
     check('email')
-    .not()
-    .isEmpty()
+        .normalizeEmail()
+        .isEmail(),
+    check('password')
+        .not()
+        .isLength({min: 8, max: 72})
 ], 
 usersController.registerUser);
 
-router.post('/login', 
-[
-    check('username')
-    .not()
-    .isEmpty(),
-    check('password')
-    .isLength({min: 8, max: 72})
-    .not()
-    .isEmpty()
-],
-usersController.loginUser);
+router.post('/login', usersController.loginUser);
 
 
 module.exports = router;
