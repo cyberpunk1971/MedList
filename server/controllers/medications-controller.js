@@ -192,9 +192,10 @@ const editMed = async (req, res, next) => {
 
 const deleteMed = async (req, res, next) => {
     const medId = req.params.mid;
+
     let med;
     try {
-       med = await Medication.findById(medId);
+       med = await Medication.findById(medId).populate('creator');
     } catch (err) {
         const error = new HttpError(
             'Could not find that medication.',
@@ -203,8 +204,18 @@ const deleteMed = async (req, res, next) => {
         return next(error);
     }
 
+    if (!med) {
+        const error = new HttpError('Could not find medication for that ID', 404);
+        return next(error);
+    }
+
     try {
-        await med.remove();
+        const sess = await mongoose.startSession();
+        sess.startTransaction();
+        await med.remove({session: sess});
+        med.creator.medications.pull(med);
+        await med.creator.save({session: sess});
+        await sess.commitTransaction();
     } catch (err) {
         const error = new HttpError(
             'Could not delete that medication',
