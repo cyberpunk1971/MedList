@@ -11,25 +11,25 @@
 </head>
 
 <body>
-    <header class="col-12" role="banner">
+    <header role="banner">
         <h1>MedList</h1>
-        <nav class="col-12">
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="login.html">Login</a></li>
-                <li><a href="register.html">Register</a></li>
-            </ul>
-        </nav>
     </header>
 
 
-    <div class="row">
-        <h1 class="col-6">Hello World</h1>
+    
+        <div class="class= col-6 side_div_left">
+            <h2>MedList</h2>
+          <h3>is an application for managing
+            your daily medications.
+           MedList uses the FDA API for
+           the data. Click the DEMO button
+           to try the application or register.</h3>
+            <button><a href="dashboard.html">DEMO</a></button>
+        </div>
 
+        <div>
 
-        <div class="col-6">
-
-            <form action="/register">
+            <form class="col-6" id="register-form" action="/register" method="POST">
 
                 <div>
                     <div>
@@ -62,14 +62,18 @@
                 </div>
 
 
-                <div>
-                    <input type="submit" value="Submit">
+                <div class="submit__button">
+                    <button type="submit" id="submit-btn">Submit</button>
                 </div>
 
             </form>
 
+            <div class="login__div">
+                <h3>Have an account? <a href="login.html" class="login__btn">Login</a></h3>
+            </div>
         </div>
-    </div>
+    
+
 </body>
 
 </html>

@@ -1,4 +1,4 @@
-//require('dotenv').config();
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const HttpError = require('./models/http-error');
@@ -48,7 +48,7 @@ let server;
 
 function runServer() {
     return new Promise((resolve, reject) => {
-        mongoose.connect(DATABASE_URL, {useNewUrlParser: true, useUnifiedTopology: true}, err => {
+        mongoose.connect(DATABASE_URL, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true}, err => {
             if (err) {
                 return reject(err);
             }
@@ -83,15 +83,3 @@ if (require.main === module) {
     .catch(err => console.error(err));
 }
 module.exports = { app, runServer, closeServer};
-
-
-// mongoose
-// .connect(DATABASE_URL, { useNewUrlParser: true})
-// .then(result => {
-//     app.listen(PORT, () => {
-//         console.log(`Your app is listening on port ${PORT}`);
-//     })
-//     .catch(err => {
-//         console.log(err);
-//     });
-// });

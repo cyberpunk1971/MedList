@@ -15,7 +15,7 @@ input[type=submit] {
     background-color: blanchedalmond;
     color: black;
     padding: 14px 20px;
-    margin: 8px 0;
+    margin: 25px 0;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -27,5 +27,22 @@ input[type=submit]:hover {
 
   header {
     background-color: bisque;
-    margin-bottom: 100px;
+    margin-bottom: 50px;
+    text-align: center;
+  }
+
+  .login__btn {
+    color: chocolate;
+  }
+
+  .login__div {
+    text-align: center;
+  }
+
+  .side_div_left {
+    text-align: center;
+  }
+
+  .submit__btn {
+    text-align: center;
   }

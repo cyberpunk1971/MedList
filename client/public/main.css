@@ -72,7 +72,28 @@
     .col-12 {
       width: 100%;
     }
-    
+
+    .side_div_left {
+      text-align: center;
+      height: 50vh;
+      border-right: 1px solid black;
+      padding: 100px 100px 0px 100px;
+    }
+
+    header {
+      height: 100px;
+    }
+
+    h1 {
+      margin-top: 0;
+      padding: 25px 0;
+      font-size: 3rem;
+    }
+
+    form.col-6 {
+      padding: 100px 100px 0 100px;
+    }
+
   }
 
    ul {
@@ -81,14 +102,23 @@
     justify-content: space-around;
   }
 
-  li {
+   li {
       list-style: none;
   }
 
-  a {
+   a {
     text-decoration: none;
     cursor: pointer;
     color: black;
+  }
+
+  button {
+    background: blanchedalmond;
+    border-radius: 5px;
+    border: none;
+    font-size: 20px;
+    padding: 5px 10px;
+    cursor: pointer;
   }
 
 
