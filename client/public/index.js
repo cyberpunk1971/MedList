@@ -1,45 +1,54 @@
-// const registerForm = document.getElementById('register-form');
-// const registerBtn = document.getElementById('submit-btn');
+const form = document.getElementById('register-form');
+const btn = document.getElementById('submit-btn');
 
+function sendHttpRequest(method, url, data) {
+    return fetch(url, {
+        url: url,
+        method: method,
+        body: data,
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        if (response.status >= 200 && response.status < 300) {
+            return response.json();
+        } else {
+            return response.json().then(errData => {
+                console.log(errData);
+                throw new Error('Server-side error.');
+            })
+        }
+    })
+    .catch(error => {
+        console.log(error);
+        throw new Error('Somthing went wrong.')
+    })
+}
 
-
-// // const successResponse = (url) => {
-// //     if (url === '/api/users/register') {
-        
-// //     }
-// // }
-
-
-
-// const httpRequest = (method, url, queryParams) => {
-//     const http = new XMLHttpRequest();
-//     url = 'http://localhost:5000' + url 
+async function createUser(username, email, password) {
     
-//     http.onreadystatechange = function() {
-//         if (this.readyState == 4 && this.status == 200) {
-//             console.log('request sent.');
-//         }
-//     }
-//     if (method === 'POST') {
-//         http.open('POST', url, true);
-//         http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-//     }
-//     console.log(queryParams);
-//     http.send(queryParams);
-// }
+        const user = {
+            username: username,
+            email: email,
+            password: password
+        };
 
-// registerForm.onsubmit = function(event) {
-//     event.preventDefault();
-// const usernameValue = document.getElementById('username').value;
-// const emailValue = document.getElementById('email').value;
-// const passwordValue = document.getElementById('password').value;
-// console.log(usernameValue);
-   
-//     let queryParams = ''
-//     queryParams = 'username=' + usernameValue + '&email='+ emailValue + '&password=' + passwordValue;
-//     httpRequest('POST', '/api/users/register', queryParams);
-    
-    
-// };
+        const fd = new FormData(form);
+        fd.append('username', username);
+        fd.append('email', email);
+        fd.append('password', password);
 
+         sendHttpRequest('POST', '/api/users/register', fd);
+    
+}
+
+form.addEventListener('submit', event => {
+    event.preventDefault();
+    const userNameValue = event.currentTarget.querySelector('#username').value;
+    const userEmailValue = event.currentTarget.querySelector('#email').value;
+    const userPasswordValue = event.currentTarget.querySelector('#password').value;
+    console.log(userNameValue);
+    createUser(userNameValue, userEmailValue, userPasswordValue);
+});
 

@@ -1,4 +1,5 @@
 require('dotenv').config();
+const cors = require('cors');
 const express = require('express');
 const bodyParser = require('body-parser');
 const HttpError = require('./models/http-error');
@@ -9,6 +10,7 @@ const medicationsRoute = require('./routes/medications');
 const usersRoute = require('./routes/users');
 
 const app = express();
+app.use(cors());
 
 app.use(express.static('public'));
 
