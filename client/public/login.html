@@ -1,69 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="main.css">
-    <link rel="stylesheet" type="text/css" href="styles.css">
-    <script src="index.js" defer></script>
-    <title>MedList</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="main.css">
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <script src="index.js" defer></script>
+  <title>MedList</title>
 </head>
+
 <body>
-    <header class="col-12" role="banner">
-        <h1>MedList</h1>
-        <nav class="col-12">
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="login.html">Login</a></li>
-                <li><a href="register.html">Register</a></li>
-            </ul>
-        </nav>
-    </header>
+  <header class="col-12" role="banner">
+    <h1>MedList</h1>
+    <nav class="col-12">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="register.html">Register</a></li>
+      </ul>
+    </nav>
+  </header>
 
-    <div>
-        <form class="col-6" action="/register">
+  <div>
+    <form class="col-6" id="login-form">
 
+      <div>
         <div>
-          <div>
-            <label for="username">Username</label>
-          </div>
-
-          <div>
-            <input class="col-6" type="text" id="username" name="username" placeholder="Username..">
-          </div>
-
+          <label for="email">Email</label>
         </div>
 
         <div>
-          <div>
-            <label for="email">Email</label>
-          </div>
-
-          <div>
-            <input class="col-6" type="email" id="email" name="email" placeholder="Your Email..">
-          </div>
-
+          <input class="col-6" type="email" id="email" name="email" placeholder="Your Email..">
         </div>
 
-        <div>
-            <div>
-                <label for="password">Password</label>
-            </div>
-
-            <div>
-                <input class="col-6" type="password" id="password" name="password" placeholder="Your password..">
-              </div>
-
-         </div>
-    </div>
-        <div>
-          <input class="col-6" type="submit" id="submit-btn" value="Submit">
-        </div>
-        </form>
       </div>
-      
-      </body>
-      </html>
+
+      <div>
+        <div>
+          <label for="password">Password</label>
+        </div>
+
+        <div>
+          <input class="col-6" type="password" id="password" name="password" placeholder="Your password..">
+        </div>
+
+      </div>
+  </div>
+  <div>
+    <input class="col-6" type="submit" id="submit-btn" value="Submit">
+  </div>
+  </form>
+  </div>
 
 </body>
+
+</html>
+
+</body>
+
 </html>

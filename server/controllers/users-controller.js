@@ -12,7 +12,6 @@ const { User } = require('../models/user');
 
 
 const registerUser = async (req, res, next) => {
-    console.log(req.body);
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         console.log(errors);
@@ -100,7 +99,7 @@ const loginUser = async (req, res, next) => {
              existingUser = await User.findOne({ email: email })
         } catch (err) {
             const error = new HttpError(
-                'Login failed',
+                'Login failed, that email is already in use.',
                 500
             );
             return next(error);
@@ -108,7 +107,7 @@ const loginUser = async (req, res, next) => {
 
         if (!existingUser) {
             const error = new HttpError(
-                'Login failed, bad password or user already exists.',
+                'Login failed, bad password.',
                 401
             );
             return next(error);
