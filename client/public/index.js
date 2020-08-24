@@ -5,8 +5,9 @@ function sendHttpRequest(method, url, data) {
     return fetch(url, {
         url: url,
         method: method,
-        body: data,
+        body: JSON.stringify(data),
         headers: {
+            'Accept': 'application/json, text/plain, */*',
             'Content-Type': 'application/json'
         }
     })
