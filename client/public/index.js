@@ -1,6 +1,6 @@
- const form = document.getElementById('register-form');
- //const btn = document.getElementById('submit-btn');
- const loginForm = document.getElementById('login-form');
+ const registerForm = document.getElementById('register-form');
+ const btn = document.getElementById('submit-btn');
+ 
 
 
 
@@ -32,129 +32,98 @@
 //         })
 // }
 
-// async function createUser(username, email, password) {
+async function createUser(username, email, password) {
 
-//     const user = {
-//         username: username,
-//         email: email,
-//         password: password
-//     };
+    const user = {
+        username: username,
+        email: email,
+        password: password
+    };
 
-//     // const fd = new FormData(form);
-//     // fd.append('username', username);
-//     // fd.append('email', email);
-//     // fd.append('password', password);
+    // const fd = new FormData(form);
+    // fd.append('username', username);
+    // fd.append('email', email);
+    // fd.append('password', password);
 
-//     //  sendHttpRequest('POST', 'http://localhost:5000/api/users/register', fd);
+    //  sendHttpRequest('POST', 'http://localhost:5000/api/users/register', fd);
 
-//     const myHeaders = new Headers();
-//     myHeaders.append("Content-Type", "application/json");
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
 
-//     const raw = JSON.stringify(user);
+    const raw = JSON.stringify(user);
 
-//     const requestOptions = {
-//         method: 'POST',
-//         headers: myHeaders,
-//         body: raw
-//         //redirect: 'follow'
-//     };
+    const requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw
+        //redirect: 'follow'
+    };
 
-//     fetch("http://localhost:5000/api/users/register", requestOptions)
-//         .then(response => response.text())
-//         .then(result => {
-//             window.location = '/client/public/dashboard.html'
-//         })
-//         .catch(error => console.log('error', error));
+    fetch("http://localhost:5000/api/users/register", requestOptions)
+        .then(response => response.text())
+        .then(result => {
+            window.location = '/client/public/dashboard.html'
+        })
+        .catch(error => console.log('error', error));
 
-// }
+}
 
-// async function loginUser (email, password) {
-//     const user = {
-//         email: email,
-//         password: password
-//     }
-//     const myHeaders = new Headers();
-//     myHeaders.append("Content-Type", "application/json", {
-//         'Authorization': 'Basic' + btoa({
-//             email: email, 
-//             password: password
+
+
+
+
+//Register submit
+registerForm.addEventListener('submit', event => {
+    event.preventDefault();
+    const userNameValue = event.currentTarget.querySelector('#username').value;
+    const userEmailValue = event.currentTarget.querySelector('#email').value;
+    const userPasswordValue = event.currentTarget.querySelector('#password').value;
+    createUser(userNameValue, userEmailValue, userPasswordValue);
+});
+
+
+
+
+
+// function registerUser() {
+//     form.addEventListener('submit', event => {
+//         event.preventDefault();
+//         const user = {
+//             username: event.currentTarget.querySelector('#username').value,
+//             email: event.currentTarget.querySelector('#email').value,
+//             password: event.currentTarget.querySelector('#password').value
+//         };
+//         fetch("http://localhost:5000/api/users/register", {
+//             method: 'POST',
+//             body: JSON.stringify(user),
+//             contentType: 'application/json'
+//         }).then(function(error, data) {
+//             fetchCall(user);
 //         })
 //     });
-
-//     const raw = JSON.stringify(user);
-
-//     const requestOptions = {
-//         method: 'POST',
-//         headers: myHeaders,
-//         body: raw
-//         //redirect: 'follow'
-//     };
-
-//     fetch("http://localhost:5000/api/users/login", requestOptions)
-//         .then(response => response.text())
-//         .then(result => {
-//             window.location = '/client/public/dashboard.html'
-//         })
-//         .catch(error => console.log('error', error));
-
 // }
 
-// form.addEventListener('submit', event => {
-//     event.preventDefault();
-//     const userNameValue = event.currentTarget.querySelector('#username').value;
-//     const userEmailValue = event.currentTarget.querySelector('#email').value;
-//     const userPasswordValue = event.currentTarget.querySelector('#password').value;
-//     createUser(userNameValue, userEmailValue, userPasswordValue);
-// });
+// function loginUser() {
+//     loginForm.addEventListener('submit', event => {
+//         event.preventDefault();
+//         const user = {
+//             email: event.currentTarget.querySelector('#email').value,
+//             password: event.currentTarget.querySelector('#password').value
+//         }
+//         fetchCall(user);
+//     });
+// }
 
-// loginForm.addEventListener('submit', event => {
-//     event.preventDefault();
-//     const userEmailValue = event.currentTarget.querySelector('#email').value;
-//     const userPasswordValue = event.currentTarget.querySelector('#password').value;
-//     loginUser(userEmailValue, userPasswordValue);
-// });
-
-
-
-function registerUser() {
-    form.addEventListener('submit', event => {
-        event.preventDefault();
-        const user = {
-            username: event.currentTarget.querySelector('#username').value,
-            email: event.currentTarget.querySelector('#email').value,
-            password: event.currentTarget.querySelector('#password').value
-        };
-        fetch("http://localhost:5000/api/users/register", {
-            method: 'POST',
-            body: JSON.stringify(user),
-            contentType: 'application/json'
-        }).then(function(error, data) {
-            fetchCall(user);
-        })
-    });
-}
-
-function loginUser() {
-    loginForm.addEventListener('submit', event => {
-        event.preventDefault();
-        const user = {
-            email: event.currentTarget.querySelector('#email').value,
-            password: event.currentTarget.querySelector('#password').value
-        }
-        fetchCall(user);
-    });
-}
-
-function fetchCall(user) {
-    fetch("http://localhost:5000/api/users/login", {
-        headers: {
-            'Authorization': 'Basic ' + btoa(`${user.username}: ${user.password}`)
-        },
-        method: 'POST',
-        body: JSON.stringify(userValues),
-        contentType: 'application/json'
-    }).then(function(data, error) {
-        window.location = '/dashboard.html'
-        localStorage.token = body.decodedToken
-    });
-}
+// function fetchCall(user) {
+//     fetch("http://localhost:5000/api/users/login", {
+//         headers: {
+//             'Authorization': 'Basic ' + btoa(`${user.username}: ${user.password}`)
+//         },
+//         method: 'POST',
+//         body: JSON.stringify(userValues),
+//         contentType: 'application/json'
+//     }).then(function(data, error) {
+//         window.location = '/dashboard.html'
+//         localStorage.token = body.decodedToken
+//     });
+// }
