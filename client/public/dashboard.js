@@ -1,19 +1,22 @@
-const xhr = new XMLHttpRequest;
+const searchForm = document.getElementById('search-form');
+const API_KEY = 'kLvHt2puR01mwrVfJM2yyP2m7CkQ1KvuIAAERSrc';
+const SEARCH_URL = 'https://api.fda.gov/drug/label.json';
 
-xhr.open('POST', '/api/users');
+const getApiData = (input, callback) => {
+   const query = {
+       url: SEARCH_URL,
+       data: {
+           search: `openfda.brand_name:${input}`,
+           limit: 4
+       },
+   };
+   fetch(SEARCH_URL, query.data, searchMeds)
+   .fail(() => {
+       alert('item not found');
+   });
+}
 
-xhr.responseType = 'json';
+searchForm.addEventListener('submit', event => {
+    event.preventDefault();
 
-xhr.onload = function() {
-    const listOfMeds = xhr.response;
-    for (const med of listOfMeds) {
-        const medEl = document.importNode(medTemplate.content, true);
-        medEl.querySelector('li').textContent = med.name;
-        listElement.append(medEl);
-    }
-};
-
-xhr.send();
-
-const listElement = document.querySelector('.meds');
-const medTemplate = document.getElementById('single-med');
+})

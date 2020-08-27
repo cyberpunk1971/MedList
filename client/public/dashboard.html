@@ -3,10 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="dashboard.js" defer></script>
     <title>MedList Dashboard</title>
 </head>
 <body>
     <h1>Dashboard</h1>
     <button><a href="index.html">Home</a></button>
+    <form id="search-form">
+        <label for="search" id="search-label">Search</label>
+        <input type="text" name="med-search" id="med-search">
+        <button type="submit" name="med-submit" id="med-submit">Search</button>
+    </form>
+    <section id="search-results">
+        
+    </section>
+    <div class="med-card" id="med-info-card">
+        <div class="med-info" id="med-info-section">
+            <button>Add</button>
+        </div>
+    </div>
+    
 </body>
 </html>
